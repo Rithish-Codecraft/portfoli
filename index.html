@@ -1,681 +1,767 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rithish J - AI & Data Science Student</title>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    :root {
-      --bg-color: #F8FAFC;
-      --bg-gradient: linear-gradient(135deg, #F8FAFC 0%, #e2e8f0 100%);
-      --card-bg: #ffffff;
-      --card-border: rgba(30, 41, 59, 0.08);
-      --text-primary: #1E293B;
-      --text-secondary: #475569;
-      --accent-primary: #2563EB;
-      --accent-secondary: #1d4ed8;
-      --accent-gradient: linear-gradient(135deg, #2563EB 0%, #3b82f6 100%);
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Outfit', sans-serif;
-    }
-
-    body {
-      background: var(--bg-gradient);
-      color: var(--text-primary);
-      line-height: 1.6;
-      min-height: 100vh;
-      padding: 40px 20px;
-      display: flex;
-      justify-content: center;
-    }
-
-    .resume-container {
-      max-width: 1200px;
-      width: 100%;
-      display: grid;
-      grid-template-columns: 350px 1fr;
-      gap: 30px;
-      background: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(20px);
-      border: 1px solid var(--card-border);
-      border-radius: 24px;
-      overflow: hidden;
-      box-shadow: 0 25px 50px -12px rgba(30, 41, 59, 0.15);
-      position: relative;
-    }
-
-    .qr-code {
-      position: absolute;
-      top: 30px;
-      right: 30px;
-      width: 80px;
-      height: 80px;
-      border-radius: 8px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      border: 3px solid #fff;
-      transition: transform 0.3s ease;
-      z-index: 10;
-    }
-
-    .qr-code:hover {
-      transform: scale(1.1) rotate(2deg);
-    }
-
-    /* Sidebar */
-    .sidebar {
-      background: var(--card-bg);
-      padding: 40px 30px;
-      border-right: 1px solid var(--card-border);
-    }
-
-    .profile-section {
-      text-align: center;
-      margin-bottom: 40px;
-    }
-
-    .profile-img-container {
-      width: 180px;
-      height: 320px;
-      margin: 0 auto 20px;
-      border-radius: 15px;
-      padding: 4px;
-      background: var(--accent-gradient);
-      position: relative;
-    }
-    
-    .profile-img-container::before {
-        content: '';
-        position: absolute;
-        top: -5px; right: -5px; bottom: -5px; left: -5px;
-        background: var(--accent-gradient);
-        border-radius: 18px;
-        z-index: -1;
-        filter: blur(15px);
-        opacity: 0.4;
-    }
-
-    .profile-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 12px;
-      border: 4px solid #ffffff;
-    }
-
-    .contact-info {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      margin-bottom: 40px;
-    }
-
-    .contact-item {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      color: var(--text-secondary);
-      font-size: 0.95rem;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      font-weight: 500;
-    }
-
-    .contact-item:hover {
-      color: var(--accent-primary);
-      transform: translateX(5px);
-    }
-
-    .contact-item i {
-      font-size: 1.2rem;
-      width: 24px;
-      text-align: center;
-      background: var(--accent-gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .sidebar-section {
-      margin-bottom: 35px;
-    }
-
-    .section-title {
-      font-size: 1.2rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      margin-bottom: 20px;
-      color: var(--text-primary);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .section-title::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--card-border);
-    }
-
-    .skill-category {
-      margin-bottom: 20px;
-    }
-
-    .skill-category h4 {
-      font-size: 0.95rem;
-      color: var(--text-primary);
-      margin-bottom: 10px;
-      font-weight: 600;
-    }
-
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .tag {
-      background: rgba(37, 99, 235, 0.08);
-      color: var(--accent-primary);
-      padding: 6px 12px;
-      border-radius: 20px;
-      font-size: 0.85rem;
-      border: 1px solid rgba(37, 99, 235, 0.2);
-      transition: all 0.3s ease;
-      font-weight: 500;
-    }
-
-    .tag:hover {
-      background: rgba(37, 99, 235, 0.15);
-      transform: translateY(-2px);
-    }
-
-    /* Main Content */
-    .main-content {
-      padding: 50px 40px;
-      overflow-y: auto;
-    }
-
-    .header-section {
-      margin-bottom: 40px;
-      animation: fadeInDown 0.8s ease-out;
-    }
-
-    h1 {
-      font-size: 3.5rem;
-      font-weight: 700;
-      line-height: 1.1;
-      margin-bottom: 10px;
-      background: var(--accent-gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    h2 {
-      font-size: 1.2rem;
-      font-weight: 500;
-      color: var(--text-secondary);
-      letter-spacing: 0.5px;
-    }
-
-    .content-section {
-      margin-bottom: 40px;
-      animation: fadeInUp 0.8s ease-out backwards;
-    }
-
-    .content-section:nth-child(2) { animation-delay: 0.1s; }
-    .content-section:nth-child(3) { animation-delay: 0.2s; }
-    .content-section:nth-child(4) { animation-delay: 0.3s; }
-
-    .content-section p {
-      color: var(--text-secondary);
-      font-size: 1rem;
-      line-height: 1.8;
-      font-weight: 400;
-    }
-
-    .project-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 16px;
-      padding: 25px;
-      margin-bottom: 20px;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-    }
-
-    .project-card::before {
-        content: '';
-        position: absolute;
-        top: 0; left: 0; width: 4px; height: 100%;
-        background: var(--accent-gradient);
-        opacity: 0;
-        transition: opacity 0.3s ease;
-    }
-
-    .project-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 30px -10px rgba(30, 41, 59, 0.12);
-      border-color: rgba(37, 99, 235, 0.3);
-    }
-
-    .project-card:hover::before {
-        opacity: 1;
-    }
-
-    .project-card h3 {
-      font-size: 1.4rem;
-      color: var(--text-primary);
-      margin-bottom: 10px;
-      font-weight: 600;
-    }
-
-    .project-card ul {
-      margin-top: 15px;
-      padding-left: 20px;
-      color: var(--text-secondary);
-    }
-
-    .project-card ul li {
-      margin-bottom: 8px;
-    }
-    
-    .grid-2-col {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 20px;
-    }
-
-    .list-item {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        color: var(--text-secondary);
-        font-weight: 500;
-    }
-
-    .list-item i {
-        color: var(--accent-primary);
-        font-size: 0.9rem;
-    }
-
-    /* Animations */
-    @keyframes fadeInDown {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* Responsive */
-    @media (max-width: 992px) {
-      .resume-container {
-        grid-template-columns: 1fr;
-      }
-      .sidebar {
-        border-right: none;
-        border-bottom: 1px solid var(--card-border);
-      }
-      h1 {
-        font-size: 2.8rem;
-      }
-    }
-    
-    @media (max-width: 768px) {
-        .grid-2-col {
-            grid-template-columns: 1fr;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rithish J - AI & Data Science Student</title>
+    <link rel="icon" type="image/jpeg" href="./founder.jpeg">
+    <!-- Font removed for Times New Roman -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #FAF7F2;
+            --bg-gradient: linear-gradient(135deg, #FAF7F2 0%, #ede7dc 100%);
+            --card-bg: #E6DFD3;
+            --card-border: rgba(43, 42, 39, 0.1);
+            --text-primary: #000000;
+            --text-secondary: #000000;
+            --accent-primary: #D4A373;
+            --accent-secondary: #be9267;
+            --accent-gradient: linear-gradient(135deg, #D4A373 0%, #be9267 100%);
         }
-    }
 
-    /* Floating Print Button */
-    .print-btn {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      background: var(--accent-gradient);
-      color: white;
-      border: none;
-      padding: 12px 24px;
-      border-radius: 50px;
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      box-shadow: 0 10px 20px -5px rgba(37, 99, 235, 0.4);
-      transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      z-index: 1000;
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Times New Roman', Times, serif;
+        }
 
-    .print-btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 15px 25px -5px rgba(37, 99, 235, 0.5);
-    }
+        body {
+            background: var(--bg-gradient);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+        }
 
-    /* Print Styles */
-    @media print {
-      body {
-        background: #fff;
-        padding: 0;
-        margin: 0;
-      }
-      .print-btn {
-        display: none !important;
-      }
-      .resume-container {
-        max-width: 100%;
-        margin: 0;
-        padding: 0;
-        box-shadow: none;
-        border: none;
-        grid-template-columns: 300px 1fr;
-        gap: 0;
-      }
-      .sidebar {
-        border-right: 1px solid #e2e8f0;
-        padding: 30px 20px;
-        -webkit-print-color-adjust: exact;
-        print-color-adjust: exact;
-      }
-      .main-content {
-        padding: 30px;
-      }
-      .project-card {
-        box-shadow: none;
-        border: 1px solid #e2e8f0;
-        page-break-inside: avoid;
-        break-inside: avoid;
-      }
-      .content-section, .sidebar-section {
-        page-break-inside: avoid;
-        break-inside: avoid;
-      }
-      .profile-img-container::before {
-        display: none;
-      }
-      h1 {
-        -webkit-text-fill-color: initial;
-        color: var(--accent-primary);
-      }
-    }
+        .resume-container {
+            max-width: 1200px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 30px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(30, 41, 59, 0.15);
+            position: relative;
+        }
 
-    /* Shimmer Effect for Texts on Load */
-    @keyframes shimmer-text {
-      0% { background-position: 200% center; }
-      100% { background-position: -200% center; }
-    }
+        .qr-code {
+            width: 160px;
+            height: 160px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border: 3px solid #fff;
+            transition: transform 0.3s ease;
+            margin: 0 auto;
+            display: block;
+        }
 
-    h1, h2, .section-title {
-      background: linear-gradient(
-        -45deg,
-        var(--text-primary) 30%,
-        #38bdf8 50%,
-        var(--text-primary) 70%
-      );
-      background-size: 300%;
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      animation: shimmer-text 2.5s ease-out;
-    }
+        .qr-code:hover {
+            transform: scale(1.05) rotate(2deg);
+        }
 
-    h1 {
-      background: linear-gradient(
-        -45deg,
-        var(--accent-primary) 30%,
-        #60a5fa 50%,
-        var(--accent-secondary) 70%
-      );
-      background-size: 300%;
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      animation: shimmer-text 2.5s ease-out;
-    }
+        /* Sidebar */
+        .sidebar {
+            background: var(--card-bg);
+            padding: 40px 30px;
+            border-right: 1px solid var(--card-border);
+        }
 
-    /* Staggered Element Fade-Ins on Load */
-    .sidebar-section, .contact-item, .project-card, .list-item, .tag, .qr-code {
-      animation: fadeInDown 0.8s ease-out backwards;
-    }
+        .profile-section {
+            text-align: center;
+            margin-bottom: 40px;
+        }
 
-    .sidebar-section:nth-child(1) { animation-delay: 0.1s; }
-    .sidebar-section:nth-child(2) { animation-delay: 0.2s; }
-    .sidebar-section:nth-child(3) { animation-delay: 0.3s; }
-    .contact-item:nth-child(1) { animation-delay: 0.1s; }
-    .contact-item:nth-child(2) { animation-delay: 0.2s; }
-    .contact-item:nth-child(3) { animation-delay: 0.3s; }
-    .contact-item:nth-child(4) { animation-delay: 0.4s; }
-    .qr-code { animation-delay: 0.5s; }
-    
-    .project-card:nth-child(1) { animation-delay: 0.3s; }
-    .project-card:nth-child(2) { animation-delay: 0.5s; }
+        .profile-img-container {
+            width: 180px;
+            height: 320px;
+            margin: 0 auto 20px;
+            border-radius: 15px;
+            padding: 4px;
+            background: var(--accent-gradient);
+            position: relative;
+        }
 
-    /* Universal Transition for Hover Effects */
-    p, li, .list-item, h3, h4, .tag {
-      transition: all 0.3s ease;
-    }
-  </style>
+        .profile-img-container::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            bottom: -5px;
+            left: -5px;
+            background: var(--accent-gradient);
+            border-radius: 18px;
+            z-index: -1;
+            filter: blur(15px);
+            opacity: 0.4;
+        }
+
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 4px solid #ffffff;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .contact-item:hover {
+            color: #000000;
+            transform: translateX(5px);
+        }
+
+        .contact-item i {
+            font-size: 1.2rem;
+            width: 24px;
+            text-align: center;
+            color: #000000;
+        }
+
+        .sidebar-section {
+            margin-bottom: 35px;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--card-border);
+        }
+
+        .skill-category {
+            margin-bottom: 20px;
+        }
+
+        .skill-category h4 {
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            background: rgba(212, 163, 115, 0.15);
+            color: #000000;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            border: 1px solid rgba(212, 163, 115, 0.3);
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .tag:hover {
+            background: rgba(212, 163, 115, 0.25);
+            transform: translateY(-2px);
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 50px 40px;
+            overflow-y: auto;
+        }
+
+        .header-section {
+            margin-bottom: 40px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 10px;
+            color: #000000;
+        }
+
+        h2 {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            letter-spacing: 0.5px;
+        }
+
+        .content-section {
+            margin-bottom: 40px;
+            animation: fadeInUp 0.8s ease-out backwards;
+        }
+
+        .content-section:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .content-section:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+
+        .content-section:nth-child(4) {
+            animation-delay: 0.3s;
+        }
+
+        .content-section p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.8;
+            font-weight: 400;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--accent-gradient);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px -10px rgba(43, 42, 39, 0.12);
+            border-color: rgba(212, 163, 115, 0.3);
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        .project-card h3 {
+            font-size: 1.4rem;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .project-card ul {
+            margin-top: 15px;
+            padding-left: 20px;
+            color: var(--text-secondary);
+        }
+
+        .project-card ul li {
+            margin-bottom: 8px;
+        }
+
+        .grid-2-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .list-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .list-item i {
+            color: #000000;
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .resume-container {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                border-right: none;
+                border-bottom: 1px solid var(--card-border);
+            }
+
+            h1 {
+                font-size: 2.8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .grid-2-col {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Floating Print Button */
+        .print-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--accent-gradient);
+            color: #000000;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 10px 20px -5px rgba(212, 163, 115, 0.4);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 1000;
+        }
+
+        .print-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px -5px rgba(212, 163, 115, 0.5);
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: #fff;
+                padding: 0;
+                margin: 0;
+            }
+
+            .print-btn {
+                display: none !important;
+            }
+
+            .resume-container {
+                max-width: 100%;
+                margin: 0;
+                padding: 0;
+                box-shadow: none;
+                border: none;
+                grid-template-columns: 300px 1fr;
+                gap: 0;
+            }
+
+            .sidebar {
+                border-right: 1px solid #e2e8f0;
+                padding: 30px 20px;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .main-content {
+                padding: 30px;
+            }
+
+            .project-card {
+                box-shadow: none;
+                border: 1px solid #e2e8f0;
+                page-break-inside: avoid;
+                break-inside: avoid;
+            }
+
+            .content-section,
+            .sidebar-section {
+                page-break-inside: avoid;
+                break-inside: avoid;
+            }
+
+            .profile-img-container::before {
+                display: none;
+            }
+
+            h1 {
+                -webkit-text-fill-color: initial;
+                color: #000000;
+            }
+        }
+
+        /* Removed shimmer effect */
+
+        /* Staggered Element Fade-Ins on Load */
+        .sidebar-section,
+        .contact-item,
+        .project-card,
+        .list-item,
+        .tag,
+        .qr-code {
+            animation: fadeInDown 0.8s ease-out backwards;
+        }
+
+        .sidebar-section:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .sidebar-section:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .sidebar-section:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .contact-item:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .contact-item:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .contact-item:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .contact-item:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        .qr-code {
+            animation-delay: 0.5s;
+        }
+
+        .project-card:nth-child(1) {
+            animation-delay: 0.3s;
+        }
+
+        .project-card:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+
+        /* Universal Transition for Hover Effects */
+        p,
+        li,
+        .list-item,
+        h3,
+        h4,
+        .tag {
+            transition: all 0.3s ease;
+        }
+    </style>
 </head>
+
 <body>
 
-  <div class="resume-container">
-    <img src="./qr_code.png" alt="Portfolio QR Code" class="qr-code">
-    <!-- Sidebar -->
-    <aside class="sidebar">
-      <div class="profile-section">
-        <div class="profile-img-container">
-          <img src="./founder.jpeg" alt="Rithish J" class="profile-img" onerror="this.src='https://ui-avatars.com/api/?name=Rithish+J&background=2563EB&color=fff&size=200'">
-        </div>
-      </div>
-
-      <div class="contact-info">
-        <a href="mailto:rithish.codecraft@gmail.com" class="contact-item">
-          <i class="fas fa-envelope"></i>
-          rithish.codecraft@gmail.com
-        </a>
-        <a href="https://www.linkedin.com/in/rithish-ceo-10001-feenixs/" target="_blank" class="contact-item">
-          <i class="fab fa-linkedin"></i>
-          LinkedIn
-        </a>
-        <a href="https://github.com/Rithish-Codecraft" target="_blank" class="contact-item">
-          <i class="fab fa-github"></i>
-          GitHub
-        </a>
-        <a href="https://rithish-portfolio-beige.vercel.app/" target="_blank" class="contact-item">
-          <i class="fas fa-globe"></i>
-          Portfolio
-        </a>
-        <div class="contact-item">
-          <i class="fas fa-map-marker-alt"></i>
-          Tamil Nadu, India
-        </div>
-      </div>
-
-      <div class="sidebar-section">
-        <h3 class="section-title">Education</h3>
-        <div style="margin-bottom: 15px;">
-          <h4 style="color: var(--text-primary); font-size: 1.1rem; margin-bottom: 5px; font-weight: 600;">B.Tech AI & Data Science</h4>
-          <p style="color: var(--accent-primary); font-size: 0.95rem; margin-bottom: 5px; font-weight: 500;">NPR College of Engineering & Technology</p>
-          <p style="color: var(--text-secondary); font-size: 0.85rem; font-weight: 500;"><i class="far fa-calendar-alt" style="margin-right: 5px;"></i> Expected Graduation: 2029</p>
-        </div>
-      </div>
-
-      <div class="sidebar-section">
-        <h3 class="section-title">Technical Skills</h3>
-        
-        <div class="skill-category">
-          <h4>Programming</h4>
-          <div class="tags">
-            <span class="tag">Python</span>
-            <span class="tag">JavaScript</span>
-            <span class="tag">HTML</span>
-            <span class="tag">CSS</span>
-          </div>
-        </div>
-
-        <div class="skill-category">
-          <h4>AI & Machine Learning</h4>
-          <div class="tags">
-            <span class="tag">TensorFlow</span>
-            <span class="tag">PyTorch</span>
-            <span class="tag">Keras</span>
-            <span class="tag">Scikit-learn</span>
-            <span class="tag">OpenCV</span>
-            <span class="tag">NumPy</span>
-            <span class="tag">Pandas</span>
-          </div>
-        </div>
-
-        <div class="skill-category">
-          <h4>AI Technologies</h4>
-          <div class="tags">
-            <span class="tag">LLMs</span>
-            <span class="tag">RAG</span>
-            <span class="tag">Vector DBs</span>
-            <span class="tag">Prompt Engineering</span>
-            <span class="tag">AI Automation</span>
-          </div>
-        </div>
-
-        <div class="skill-category">
-          <h4>Web & Databases</h4>
-          <div class="tags">
-            <span class="tag">FastAPI</span>
-            <span class="tag">Streamlit</span>
-            <span class="tag">SQLite</span>
-            <span class="tag">MySQL</span>
-          </div>
-        </div>
-
-        <div class="skill-category">
-          <h4>Tools & Platforms</h4>
-          <div class="tags">
-            <span class="tag">Git</span>
-            <span class="tag">GitHub</span>
-            <span class="tag">Docker</span>
-            <span class="tag">Firebase</span>
-            <span class="tag">VS Code</span>
-            <span class="tag">Colab</span>
-            <span class="tag">Figma</span>
-          </div>
-        </div>
-      </div>
-      
-      <div class="sidebar-section">
-        <h3 class="section-title">Languages</h3>
-        <div class="tags">
-            <span class="tag">English</span>
-            <span class="tag">Tamil</span>
-        </div>
-      </div>
-
-    </aside>
-
-    <!-- Main Content -->
-    <main class="main-content">
-      <header class="header-section">
-        <h1>RITHISH J</h1>
-        <h2>Aspiring AI Entrepreneur | AI & Data Science Student | Software Developer</h2>
-      </header>
-
-      <section class="content-section">
-        <h3 class="section-title">Professional Summary</h3>
-        <p>B.Tech student specializing in Artificial Intelligence and Data Science with a strong interest in entrepreneurship, artificial intelligence, software engineering, automation, and scalable technology products. Passionate about solving real-world problems by building AI-powered software and technology startups. Actively developing technical skills through personal projects, product design, and continuous learning while working toward building a global AI technology company.</p>
-      </section>
-
-      <section class="content-section">
-        <h3 class="section-title">Entrepreneurial Objective & Career Goal</h3>
-        <p>To build a globally recognized technology company focused on Artificial Intelligence, enterprise software, automation, cloud platforms, and emerging technologies while creating products that solve large-scale business and societal challenges. Aiming to become an entrepreneur building innovative AI products and technology solutions that create global impact through intelligent software, research, and scalable businesses.</p>
-      </section>
-
-      <section class="content-section">
-        <h3 class="section-title">Projects</h3>
-        
-        <div class="project-card">
-          <h3>ResearchGPT <span style="font-size: 0.9rem; font-weight: 500; color: var(--text-secondary);">(Concept & Prototype)</span></h3>
-          <p style="color: var(--text-primary); font-size: 0.95rem; margin-bottom: 10px; font-weight: 500;">An AI-powered research assistant capable of helping users explore and analyze research papers.</p>
-          <div class="tags" style="margin-bottom: 15px;">
-              <span class="tag">Python</span>
-              <span class="tag">FastAPI</span>
-              <span class="tag">LangChain</span>
-              <span class="tag">ChromaDB</span>
-          </div>
-          <ul>
-            <li>Semantic Search & Knowledge Retrieval</li>
-            <li>AI Question Answering & Multi-document Analysis</li>
-            <li>Research Summarization</li>
-          </ul>
-        </div>
-
-        <div class="project-card">
-          <h3>AI Automation Projects</h3>
-          <p style="color: var(--text-primary); font-size: 0.95rem; margin-bottom: 10px; font-weight: 500;">Developed automation workflows using Python and no-code automation platforms.</p>
-          <ul>
-            <li>Workflow automation & Data processing</li>
-            <li>Productivity automation</li>
-            <li>AI-assisted applications</li>
-          </ul>
-        </div>
-      </section>
-
-      <section class="content-section">
-        <div class="grid-2-col">
-            <div>
-                <h3 class="section-title">Areas of Interest</h3>
-                <div style="display: flex; flex-direction: column; gap: 8px;">
-                    <span class="list-item"><i class="fas fa-check-circle"></i> Artificial Intelligence & Agents</span>
-                    <span class="list-item"><i class="fas fa-check-circle"></i> SaaS Product Development</span>
-                    <span class="list-item"><i class="fas fa-check-circle"></i> Entrepreneurship & Startups</span>
-                    <span class="list-item"><i class="fas fa-check-circle"></i> Software Eng. & Architecture</span>
-                    <span class="list-item"><i class="fas fa-check-circle"></i> Cloud Computing & Automation</span>
-                    <span class="list-item"><i class="fas fa-check-circle"></i> Deep Tech & Product Strategy</span>
+    <div class="resume-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="profile-section">
+                <div class="profile-img-container">
+                    <img src="./founder.jpeg" alt="Rithish J" class="profile-img"
+                        onerror="this.src='https://ui-avatars.com/api/?name=Rithish+J&background=D4A373&color=fff&size=200'">
                 </div>
             </div>
-            
-            <div>
-                <h3 class="section-title">Professional Strengths</h3>
-                <div style="display: flex; flex-direction: column; gap: 8px;">
-                    <span class="list-item"><i class="fas fa-star"></i> Strategic & Analytical Thinking</span>
-                    <span class="list-item"><i class="fas fa-star"></i> Problem Solving & Adaptability</span>
-                    <span class="list-item"><i class="fas fa-star"></i> Product-Oriented Mindset</span>
-                    <span class="list-item"><i class="fas fa-star"></i> Continuous Learning</span>
-                    <span class="list-item"><i class="fas fa-star"></i> Teamwork & Communication</span>
-                    <span class="list-item"><i class="fas fa-star"></i> Initiative Taking</span>
+
+            <div class="contact-info">
+                <a href="mailto:rithish.codecraft@gmail.com" class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    rithish.codecraft@gmail.com
+                </a>
+                <a href="https://www.linkedin.com/in/rithish-ceo-10001-feenixs/" target="_blank" class="contact-item">
+                    <i class="fab fa-linkedin"></i>
+                    LinkedIn
+                </a>
+                <a href="https://github.com/Rithish-Codecraft" target="_blank" class="contact-item">
+                    <i class="fab fa-github"></i>
+                    GitHub
+                </a>
+                <a href="https://rithish-portfolio-beige.vercel.app/" target="_blank" class="contact-item">
+                    <i class="fas fa-globe"></i>
+                    Portfolio
+                </a>
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    Tamil Nadu, India
                 </div>
             </div>
-        </div>
-      </section>
-      
-      <section class="content-section">
-        <h3 class="section-title">Current Learning</h3>
-        <div class="tags">
-            <span class="tag">Advanced Python</span>
-            <span class="tag">AI Systems</span>
-            <span class="tag">Large Language Models</span>
-            <span class="tag">Software Architecture</span>
-            <span class="tag">Startup Strategy</span>
-            <span class="tag">Product Management</span>
-        </div>
-      </section>
 
-    </main>
-  </div>
+            <div class="sidebar-section">
+                <h3 class="section-title">Education</h3>
+                <div style="margin-bottom: 15px;">
+                    <h4 style="color: var(--text-primary); font-size: 1.1rem; margin-bottom: 5px; font-weight: 600;">
+                        B.Tech AI & Data Science</h4>
+                    <p style="color: #000000; font-size: 0.95rem; margin-bottom: 5px; font-weight: 500;">
+                        <a href="https://maps.app.goo.gl/NFK2jfsgpKbhDZyk6" target="_blank" style="color: inherit; text-decoration: none; border-bottom: 1px dashed #000;">
+                            <i class="fas fa-map-marker-alt" style="color: var(--accent-primary); margin-right: 5px;"></i>NPR College of Engineering & Technology
+                        </a>
+                    </p>
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; font-weight: 500;"><i
+                            class="far fa-calendar-alt" style="margin-right: 5px;"></i> UG Graduation @: 2028</p>
+                </div>
+            </div>
 
-  <button class="print-btn" onclick="window.print()">
-    <i class="fas fa-print"></i> Save as PDF
-  </button>
+            <div class="sidebar-section">
+                <h3 class="section-title">Technical Skills</h3>
+
+                <div class="skill-category">
+                    <h4>Programming</h4>
+                    <div class="tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">HTML</span>
+                        <span class="tag">CSS</span>
+                        <span class="tag">SQL</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h4>AI & Machine Learning</h4>
+                    <div class="tags">
+                        <span class="tag">TensorFlow</span>
+                        <span class="tag">PyTorch</span>
+                        <span class="tag">Keras</span>
+                        <span class="tag">Scikit-learn</span>
+                        <span class="tag">OpenCV</span>
+                        <span class="tag">NumPy</span>
+                        <span class="tag">Pandas</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h4>AI Technologies</h4>
+                    <div class="tags">
+                        <span class="tag">LLMs</span>
+                        <span class="tag">RAG</span>
+                        <span class="tag">Vector DBs</span>
+                        <span class="tag">Prompt Engineering</span>
+                        <span class="tag">AI Automation</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h4>Web & Databases</h4>
+                    <div class="tags">
+                        <span class="tag">FastAPI</span>
+                        <span class="tag">Streamlit</span>
+                        <span class="tag">SQLite</span>
+                        <span class="tag">MySQL</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h4>Tools & Platforms</h4>
+                    <div class="tags">
+                        <span class="tag">Git</span>
+                        <span class="tag">GitHub</span>
+                        <span class="tag">Docker</span>
+                        <span class="tag">Firebase</span>
+                        <span class="tag">VS Code</span>
+                        <span class="tag">Colab</span>
+                        <span class="tag">Figma</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h4>Creative & Media</h4>
+                    <div class="tags">
+                        <span class="tag">Video Editing</span>
+                        <span class="tag">Content Creation</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h3 class="section-title">Languages</h3>
+                <div class="tags">
+                    <span class="tag">English</span>
+                    <span class="tag">Tamil</span>
+                </div>
+            </div>
+
+            <div class="sidebar-section"
+                style="text-align: center; margin-top: 40px; border-top: 1px solid var(--card-border); padding-top: 30px;">
+                <h4 style="color: var(--text-primary); margin-bottom: 15px; font-weight: 600;">Scan for Portfolio</h4>
+                <img src="./qr_code.png" alt="Portfolio QR Code" class="qr-code">
+            </div>
+
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="header-section">
+                <h1>RITHISH J</h1>
+                <h2>Aspiring AI Entrepreneur | AI & Data Science Student | Software Developer</h2>
+            </header>
+
+            <section class="content-section">
+                <h3 class="section-title">Professional Summary</h3>
+                <p>B.Tech student specializing in Artificial Intelligence and Data Science with a strong interest in
+                    entrepreneurship, artificial intelligence, software engineering, automation, and scalable technology
+                    products. Passionate about solving real-world problems by building AI-powered software and
+                    technology startups. Actively developing technical skills through personal projects, product design,
+                    and continuous learning while working toward building a global AI technology company.</p>
+            </section>
+
+            <section class="content-section">
+                <h3 class="section-title">Entrepreneurial Objective & Career Goal</h3>
+                <p>To build a globally recognized technology company focused on Artificial Intelligence, enterprise
+                    software, automation, cloud platforms, and emerging technologies while creating products that solve
+                    large-scale business and societal challenges. Aiming to become an entrepreneur building innovative
+                    AI products and technology solutions that create global impact through intelligent software,
+                    research, and scalable businesses.</p>
+            </section>
+
+            <section class="content-section">
+                <h3 class="section-title">Few Projects</h3>
+
+                <div class="project-card">
+                    <h3>ResearchGPT <span
+                            style="font-size: 0.9rem; font-weight: 500; color: var(--text-secondary);">(Concept &
+                            Prototype)</span></h3>
+                    <p style="color: var(--text-primary); font-size: 0.95rem; margin-bottom: 10px; font-weight: 500;">An
+                        AI-powered research assistant capable of helping users explore and analyze research papers.</p>
+                    <div class="tags" style="margin-bottom: 15px;">
+                        <span class="tag">Python</span>
+                        <span class="tag">FastAPI</span>
+                        <span class="tag">LangChain</span>
+                        <span class="tag">ChromaDB</span>
+                    </div>
+                    <ul>
+                        <li>Semantic Search & Knowledge Retrieval</li>
+                        <li>AI Question Answering & Multi-document Analysis</li>
+                        <li>Research Summarization</li>
+                    </ul>
+                </div>
+
+                <div class="project-card">
+                    <h3>AI Automation Projects</h3>
+                    <p style="color: var(--text-primary); font-size: 0.95rem; margin-bottom: 10px; font-weight: 500;">
+                        Developed automation workflows using Python and no-code automation platforms.</p>
+                    <ul>
+                        <li>Workflow automation & Data processing</li>
+                        <li>Productivity automation</li>
+                        <li>AI-assisted applications</li>
+                    </ul>
+                </div>
+
+                <div style="text-align: center; margin-top: 20px;">
+                    <p style="font-weight: 500; color: var(--text-secondary); font-size: 1.05rem;">
+                        For more visit my <a href="https://github.com/Rithish-Codecraft" target="_blank" style="color: var(--text-primary); text-decoration: none; border-bottom: 2px solid var(--accent-primary); transition: all 0.3s ease;">github</a> <i class="fab fa-github" style="margin-left: 5px; font-size: 1.2rem; color: #000;"></i>
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <div class="grid-2-col">
+                    <div>
+                        <h3 class="section-title">Areas of Interest</h3>
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <span class="list-item"><i class="fas fa-check-circle"></i> Artificial Intelligence &
+                                Agents</span>
+                            <span class="list-item"><i class="fas fa-check-circle"></i> SaaS Product Development</span>
+                            <span class="list-item"><i class="fas fa-check-circle"></i> Entrepreneurship &
+                                Startups</span>
+                            <span class="list-item"><i class="fas fa-check-circle"></i> Software Eng. &
+                                Architecture</span>
+                            <span class="list-item"><i class="fas fa-check-circle"></i> Cloud Computing &
+                                Automation</span>
+                            <span class="list-item"><i class="fas fa-check-circle"></i> Deep Tech & Product
+                                Strategy</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="section-title">Professional Strengths</h3>
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <span class="list-item"><i class="fas fa-star"></i> Strategic & Analytical Thinking</span>
+                            <span class="list-item"><i class="fas fa-star"></i> Problem Solving & Adaptability</span>
+                            <span class="list-item"><i class="fas fa-star"></i> Product-Oriented Mindset</span>
+                            <span class="list-item"><i class="fas fa-star"></i> Continuous Learning</span>
+                            <span class="list-item"><i class="fas fa-star"></i> Teamwork & Communication</span>
+                            <span class="list-item"><i class="fas fa-star"></i> Initiative Taking</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h3 class="section-title">Current Learning</h3>
+                <div class="tags">
+                    <span class="tag">Advanced Python</span>
+                    <span class="tag">AI Systems</span>
+                    <span class="tag">Large Language Models</span>
+                    <span class="tag">Software Architecture</span>
+                    <span class="tag">Startup Strategy</span>
+                    <span class="tag">Product Management</span>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <button class="print-btn" onclick="window.print()">
+        <i class="fas fa-print"></i> Save as PDF
+    </button>
 </body>
+
 </html>
